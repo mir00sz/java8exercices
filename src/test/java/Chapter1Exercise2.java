@@ -5,7 +5,6 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -32,10 +31,10 @@ public class Chapter1Exercise2 {
 
     @Test
     public void testLambdaExpression() {
-        File[] listOfDirectories = listFilesWithLambdaExpression(rootFolder.getRoot());
-        List<String> fileNames = getFileNames(listOfDirectories);
+        File[] listOfDirectories = listDirectoriesWithLambdaExpression(rootFolder.getRoot());
+        List<String> fileNames = TestUtilMethods.getFileNames(listOfDirectories);
         assertTrue(listOfDirectories.length == folders.length);
-        for (File f : folders) {
+        for (File f : listOfDirectories) {
             assertTrue(fileNames.contains(f.getName()));
         }
     }
@@ -43,8 +42,8 @@ public class Chapter1Exercise2 {
 
     @Test
     public void testMethodExpression() {
-        File[] listOfDirectories = listFilesWithMethodExpression(rootFolder.getRoot());
-        List<String> fileNames = getFileNames(listOfDirectories);
+        File[] listOfDirectories = listDirectoriesWithMethodExpression(rootFolder.getRoot());
+        List<String> fileNames = TestUtilMethods.getFileNames(listOfDirectories);
         assertTrue(listOfDirectories.length == folders.length);
         for (File f : folders) {
             assertTrue(fileNames.contains(f.getName()));
@@ -52,20 +51,14 @@ public class Chapter1Exercise2 {
     }
 
 
-    private List<String> getFileNames(File[] listOfDirectories) {
-        List<String> result = new ArrayList<>();
-        for (File f : listOfDirectories) {
-            result.add(f.getName());
-        }
-        return result;
-    }
 
-    private File[] listFilesWithLambdaExpression(File parent) {
+
+    private File[] listDirectoriesWithLambdaExpression(File parent) {
         return parent.listFiles(f -> f.isDirectory());
     }
 
 
-    private File[] listFilesWithMethodExpression(File parent) {
+    private File[] listDirectoriesWithMethodExpression(File parent) {
         return parent.listFiles(File::isDirectory);
     }
 

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class Chapter1Exercise2 {
 
-    private File[] folders;
+    private File[] files;
 
     @Rule
     public TemporaryFolder rootFolder = new TemporaryFolder();
@@ -19,12 +19,12 @@ public class Chapter1Exercise2 {
 
     @Before
     public void setUp() throws IOException {
-        folders = new File[]{new File("testFolder1"), new File("testFolder2")};
-        File[] files = new File[]{new File("testFile1"), new File("testFile2")};
-        for (File folder : folders) {
+        files = new File[]{new File("testFolder1"), new File("testFolder2")};
+        File[] documents = new File[]{new File("testFile1"), new File("testFile2")};
+        for (File folder : files) {
             rootFolder.newFolder(folder.getName());
         }
-        for (File file : files) {
+        for (File file : documents) {
             rootFolder.newFile(file.getName());
         }
     }
@@ -33,7 +33,7 @@ public class Chapter1Exercise2 {
     public void testLambdaExpression() {
         File[] listOfDirectories = listDirectoriesWithLambdaExpression(rootFolder.getRoot());
         List<String> fileNames = TestUtilMethods.getFileNames(listOfDirectories);
-        assertTrue(listOfDirectories.length == folders.length);
+        assertTrue(listOfDirectories.length == files.length);
         for (File f : listOfDirectories) {
             assertTrue(fileNames.contains(f.getName()));
         }
@@ -44,8 +44,8 @@ public class Chapter1Exercise2 {
     public void testMethodExpression() {
         File[] listOfDirectories = listDirectoriesWithMethodExpression(rootFolder.getRoot());
         List<String> fileNames = TestUtilMethods.getFileNames(listOfDirectories);
-        assertTrue(listOfDirectories.length == folders.length);
-        for (File f : folders) {
+        assertTrue(listOfDirectories.length == files.length);
+        for (File f : files) {
             assertTrue(fileNames.contains(f.getName()));
         }
     }
